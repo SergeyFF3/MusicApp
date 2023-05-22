@@ -1,13 +1,12 @@
-import Navbar from '../../components/Navbar';
 import style from './traks.module.scss';
+import MainLayout from '../../layout/MainLayout';
 
 export default function Tracks() {
   return (
-    <>
-      <Navbar />
+    <MainLayout>
       <div className={style.wrapper}>
         <div>Tracks</div>
       </div>
-    </>
+    </MainLayout>
   );
 }

@@ -1,11 +1,12 @@
 import { FC } from 'react';
 import Navbar from '../components/Navbar';
+import { Container } from '@mui/material';
 
 const MainLayout: FC = ({ children }) => {
   return (
     <>
       <Navbar />
-      {children}
+      <Container style={{ margin: '80px auto' }}>{children}</Container>
     </>
   );
 };
