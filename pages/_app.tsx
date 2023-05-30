@@ -1,9 +1,12 @@
-import React from "react";
-import { CacheProvider } from "@emotion/react";
-import { ThemeProvider, CssBaseline } from "@mui/material";
-import createEmotionCache from "../utility/createEmotionCache";
-import lightTheme from "../styles/theme/lightTheme";
-import { AppProps } from "next/app";
+import React from 'react';
+import { CacheProvider } from '@emotion/react';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import createEmotionCache from '../utility/createEmotionCache';
+import lightTheme from '../styles/theme/lightTheme';
+import { AppProps } from 'next/app';
+import '@/styles/global.css';
+import { Provider } from 'react-redux';
+import { store } from '@/store';
 
 const emotionCache = createEmotionCache();
 
@@ -11,12 +14,14 @@ const MyApp = (props: AppProps) => {
   const { Component, pageProps } = props;
 
   return (
-    <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={lightTheme}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </CacheProvider>
+    <Provider store={store}>
+      <CacheProvider value={emotionCache}>
+        <ThemeProvider theme={lightTheme}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </CacheProvider>
+    </Provider>
   );
 };
 
