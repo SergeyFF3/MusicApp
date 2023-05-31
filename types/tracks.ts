@@ -14,3 +14,8 @@ export interface ITrack {
   audiodownload_allowed?: boolean;
   image?: string;
 }
+
+export interface TrackState {
+  tracks: ITrack[];
+  error?: string;
+}

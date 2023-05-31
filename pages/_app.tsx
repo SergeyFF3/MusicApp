@@ -4,7 +4,6 @@ import { ThemeProvider, CssBaseline } from '@mui/material';
 import createEmotionCache from '../utility/createEmotionCache';
 import lightTheme from '../styles/theme/lightTheme';
 import { AppProps } from 'next/app';
-import '@/styles/global.css';
 import { Provider } from 'react-redux';
 import { store } from '@/store';
 

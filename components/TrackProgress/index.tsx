@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 interface TrackProgressProps {
   left: number;
   right: number;
-  onChange: (e: React.ChangeEvent) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TrackProgress: FC<TrackProgressProps> = ({ left, right, onChange }) => {
@@ -11,7 +11,7 @@ const TrackProgress: FC<TrackProgressProps> = ({ left, right, onChange }) => {
     <div>
       <input
         type="range"
-        min={left}
+        min={0}
         max={right}
         value={left}
         onChange={onChange}
