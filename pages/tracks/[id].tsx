@@ -3,12 +3,35 @@ import { Button, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
 import style from '@/styles/track.module.scss';
 import Image from 'next/image';
+import { useState } from 'react';
+import { ITrack } from '@/types/tracks';
+import { GetServerSideProps } from 'next';
+import process from 'process';
+import { CLIENT_ID } from '@/services/apiConfig';
 
-const TrackPage = () => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/tracks?id=` +
+      params?.id +
+      `&${CLIENT_ID}`,
+  );
+  const data = await res.json();
+
+  return {
+    props: {
+      serverTrack: data.results[0],
+    },
+  };
+};
+
+const TrackPage = ({ serverTrack }: { serverTrack: ITrack }) => {
   const router = useRouter();
+  const [track, setTrack] = useState(serverTrack);
 
   return (
-    <MainLayout>
+    <MainLayout
+      title={`Музыкальная площадка ${track.artist_name} ${track.name}`}
+    >
       <Button
         variant="outlined"
         className={style.btn}
@@ -17,15 +40,13 @@ const TrackPage = () => {
         К списку
       </Button>
       <Grid container className={style.grid}>
-        <Image src={''} width={200} height={200} alt="" />
+        <Image src={track.image || ''} width={200} height={200} alt="" />
         <div className={style.gridItem}>
-          {/* <h2>Название трека{track.name}</h2>
-            <h2>Исполнитель{track.artist}</h2>
-            <h2>Прослушиваний - {track.list}</h2> */}
+          <h2>Название трека - {track.name}</h2>
+          <h2>Исполнитель - {track.artist_name}</h2>
         </div>
       </Grid>
       <h2>Текст трека</h2>
-      {/* <p>{track}</p> */}
     </MainLayout>
   );
 };

@@ -41,7 +41,7 @@ const Player = () => {
   }
 
   function changeCurrentTime(e: React.ChangeEvent<HTMLInputElement>) {
-    audio.setCurrentTime = +e.target.value;
+    audio.currentTime = +e.target.value;
     dispatch(playerActions.setCurrentTime(+e.target.value));
   }
 
@@ -56,20 +56,28 @@ const Player = () => {
 
   return (
     <div className={style.player}>
-      <IconButton onClick={playHandler}>
-        {pause ? <PlayArrow /> : <Pause />}
-      </IconButton>
-      <Grid
-        container
-        direction="column"
-        style={{ width: 200, margin: '0 20px' }}
-      >
-        <div>{active?.name}</div>
-        <div style={{ fontSize: 12, color: 'gray' }}>{active?.artist_name}</div>
+      <Grid container>
+        <IconButton onClick={playHandler}>
+          {pause ? <PlayArrow /> : <Pause />}
+        </IconButton>
+        <Grid
+          container
+          direction="column"
+          style={{ width: 200, margin: '0 20px' }}
+        >
+          <div>{active?.name}</div>
+          <div style={{ fontSize: 12, color: 'gray' }}>
+            {active?.artist_name}
+          </div>
+        </Grid>
+        <TrackProgress
+          left={currentTime}
+          right={duration}
+          onChange={changeCurrentTime}
+        />
+        <VolumeUp style={{ marginLeft: 'auto' }} />
+        <TrackProgress left={volume} right={100} onChange={changeVolume} />
       </Grid>
-      <TrackProgress left={0} right={duration} onChange={changeCurrentTime} />
-      <VolumeUp style={{ marginLeft: 'auto' }} />
-      <TrackProgress left={volume} right={100} onChange={changeVolume} />
     </div>
   );
 };
