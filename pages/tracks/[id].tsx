@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { ITrack } from '@/types/tracks';
 import { GetServerSideProps } from 'next';
 import process from 'process';
-import { CLIENT_ID } from '@/services/apiConfig';
+import { CLIENT_ID } from '@/configs/apiConfig';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const res = await fetch(
@@ -31,6 +31,7 @@ const TrackPage = ({ serverTrack }: { serverTrack: ITrack }) => {
   return (
     <MainLayout
       title={`Музыкальная площадка ${track.artist_name} ${track.name}`}
+      keywords={`Музыка, артисты, ${track.artist_name}, ${track.name}`}
     >
       <Button
         variant="outlined"

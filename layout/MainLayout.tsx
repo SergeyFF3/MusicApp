@@ -11,7 +11,12 @@ interface MainLayoutProps {
   keywords?: string;
 }
 
-const MainLayout: FC<MainLayoutProps> = ({ children, title, description }) => {
+const MainLayout: FC<MainLayoutProps> = ({
+  children,
+  title,
+  description,
+  keywords,
+}) => {
   return (
     <>
       <Head>
@@ -20,6 +25,9 @@ const MainLayout: FC<MainLayoutProps> = ({ children, title, description }) => {
           name="description"
           content={`Музыкальная площадка. Здесь каждый может оставить свой трек и стать знаменитым. ${description}`}
         />
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content={keywords || 'Музыка, треки, артисты'} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Navbar />
       <div
@@ -30,7 +38,6 @@ const MainLayout: FC<MainLayoutProps> = ({ children, title, description }) => {
         <Container
           style={{
             margin: '0 auto',
-            // padding: '80px 250px',
           }}
         >
           {children}
